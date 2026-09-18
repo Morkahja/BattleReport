@@ -76,12 +76,12 @@ lua.execute((ROOT / 'tests' / 'GlobalStrings.lua').read_text(encoding='utf-8-sig
 for filename in ['Core.lua', 'Average.lua', 'Resources.lua', 'Parser.lua', 'UI.lua']:
     lua.execute((ROOT / filename).read_text())
 lua.execute('''
-R=OctoBattleReport
+R=BattleReport
 function emit(ev,a,b,c,d,e,g,h)
   event=ev; arg1=a; arg2=b; arg3=c; arg4=d; arg5=e; arg6=g; arg7=h
   R.events.scripts.OnEvent()
 end
-emit("ADDON_LOADED","OctoBattleReport")
+emit("ADDON_LOADED","BattleReport")
 emit("PLAYER_LOGIN")
 function parse(msg,kind,spell,amount,source,target)
   local e=R.Parse(msg)

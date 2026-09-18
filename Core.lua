@@ -1,5 +1,5 @@
-OctoBattleReport = { pending = {}, view = 0, tab = "Overview", offset = 0 }
-local R = OctoBattleReport
+BattleReport = { pending = {}, view = 0, tab = "Overview", offset = 0 }
+local R = BattleReport
 local function row(t, name)
   if not t[name] then
     t[name] = { name=name, count=0, amount=0, hits=0, ticks=0, crits=0, max=0, casts=0, misses=0, outcomes={} }
@@ -8,8 +8,8 @@ local function row(t, name)
 end
 R.Row = row
 function R.Init()
-  if type(OctoBattleReportDB) ~= "table" then OctoBattleReportDB = {} end
-  R.db = OctoBattleReportDB
+  if type(BattleReportDB) ~= "table" then BattleReportDB = {} end
+  R.db = BattleReportDB
   if R.db.quickReport==nil then R.db.quickReport=true end
   R.db.history = R.db.history or {}
   R.db.sources = R.db.sources or {}

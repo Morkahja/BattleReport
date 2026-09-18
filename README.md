@@ -1,11 +1,8 @@
-# Octo Battle Report
+# Battle Report
 
-**Get to know your fights.** A lightweight personal combat report for World of Warcraft 1.12, including Turtle WoW. Watch your numbers live, review your last encounter, or see your average performance across up to 100 fights.
+**Get to know your fights.** A lightweight personal combat report for World of Warcraft 1.12. Watch your numbers live, review your last encounter, or see your average performance across up to 100 fights.
 
-
-**[Download the latest addon ZIP](https://github.com/Morkahja/OctoBattleReport/releases/latest/download/OctoBattleReport.zip)** · [All releases](https://github.com/Morkahja/OctoBattleReport/releases)
-
-![A saved fight showing damage by ability, resources used and recovered, and an activity chart](screenshots/fight-damage.png)
+**[Download the latest addon ZIP](https://github.com/Morkahja/BattleReport/releases/latest/download/BattleReport.zip)** · [All releases](https://github.com/Morkahja/BattleReport/releases)
 
 ## What does it show?
 
@@ -20,16 +17,16 @@ This is a report for **your character**, not a group ranking. Pets and separatel
 
 ## Installation
 
-1. [Download **OctoBattleReport.zip**](https://github.com/Morkahja/OctoBattleReport/releases/latest/download/OctoBattleReport.zip) and extract it.
-2. Copy the **OctoBattleReport** folder into your game's **Interface\AddOns** folder.
+1. [Download **BattleReport.zip**](https://github.com/Morkahja/BattleReport/releases/latest/download/BattleReport.zip) and extract it.
+2. Copy the **BattleReport** folder into your game's **Interface\AddOns** folder.
 3. Check that the folder structure looks like this—avoid an extra folder inside another folder:
 
    ```text
    World of Warcraft/
    └── Interface/
        └── AddOns/
-           └── OctoBattleReport/
-               ├── OctoBattleReport.toc
+           └── BattleReport/
+               ├── BattleReport.toc
                ├── Core.lua
                ├── Average.lua
                ├── Resources.lua
@@ -37,16 +34,44 @@ This is a report for **your character**, not a group ranking. Pets and separatel
                └── UI.lua
    ```
 
-4. Restart the game. At character selection, open **AddOns** and enable **Octo Battle Report**.
-5. Log in and click **Battle Report**, or type **`/obr`**.
+4. Restart the game. At character selection, open **AddOns** and enable **Battle Report**.
+5. Log in and click **Battle Report**, or type **`/battlereport`**.
 
 For updates, replace the files in the existing addon folder, then type `/reload`. Your saved reports and window position are stored separately by the game.
 
 **Compatibility:** made for the original 1.12 client. This package does not target modern WoW Retail or Blizzard Classic. No other addon is required; optional Nampower support improves cast tracking and item-source identification.
 
+## Upgrade from a previous add-on name
+
+If you used this add-on under a previous folder name, migrate your saved data
+before playing with the new installation. A normal file replacement is not
+enough when the folder and saved-variable names change.
+
+1. Fully close the game. Keep the previous add-on installed for this step.
+2. Install the new `BattleReport` folder beside the previous folder.
+3. Open PowerShell in `BattleReport` and run the following, replacing both example values:
+
+   ```powershell
+   .\Upgrade-SavedData.ps1 -ClientPath "C:\Games\World of Warcraft" -PreviousAddonName "PreviousAddonFolder"
+   ```
+
+The helper reads the previous TOC, copies account-wide and per-character saved
+data to the new names, and saves backups under `AddonUpgradeBackups` in the
+game folder. It keeps the original files intact and refuses to overwrite
+existing saved data for the new add-on. It does not execute saved Lua code.
+
+4. Disable the previous add-on and enable **BattleReport** before entering the world.
+5. Check your settings and saved data. Keep the backups until you have verified them.
+
+Further updates using the same add-on name keep your saved data normally.
+On other operating systems, back up the files, then copy the previous add-on's
+`.lua` file in each `WTF/Account/**/SavedVariables` directory to `BattleReport.lua`.
+Change only the top-level variable name declared in the old TOC to the matching
+name in the new TOC; leave its table contents unchanged. Do this with the game closed.
+
 ## Your first report
 
-Fight a mob, then open `/obr`. Recording is automatic, even while the window is closed. You can also leave it open during combat to watch the counters update.
+Fight a mob, then open `/battlereport`. Recording is automatic, even while the window is closed. You can also leave it open during combat to watch the counters update.
 
 ### Optional quick report
 
@@ -75,13 +100,9 @@ The baseline uses up to 100 completed fights in the current average period, excl
 
 Average helps you compare your usual damage, incoming attacks, resource use and recovery over several encounters. Counts such as `0.8 dodges` mean an average per fight. Rates use the total amount divided by total combat time; Overview also includes the mean of individual fight DPS.
 
-![Average view showing defense and resource statistics across 45 completed fights](screenshots/average-defense.png)
-
 ## See your effects
 
 The Effects tab lists observed gains and item-triggered spells. When the client identifies the item, its name appears beside the effect and in the tooltip.
-
-![Effects view showing Frostbrand Attack attributed to Changuk Smasher, with a detail tooltip](screenshots/item-effects.png)
 
 ## A few things to know
 
@@ -93,11 +114,11 @@ Effect gains are not always separate procs, and hits or periodic ticks are not s
 
 | Command | Action |
 | --- | --- |
-| `/obr` or `/battlereport` | Open or close the report |
-| `/obr last` | Show the last completed fight |
-| `/obr button` | Hide or show the launcher |
-| `/obr position` | Restore window and launcher positions |
-| `/obr source` | Explain how to label an effect's source |
+| `/battlereport` or `/battlereport` | Open or close the report |
+| `/battlereport last` | Show the last completed fight |
+| `/battlereport button` | Hide or show the launcher |
+| `/battlereport position` | Restore window and launcher positions |
+| `/battlereport source` | Explain how to label an effect's source |
 
 For capture details, fight boundaries and testing notes, see the [detailed guide](GUIDE.md).
 

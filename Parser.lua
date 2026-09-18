@@ -1,4 +1,4 @@
-local R=OctoBattleReport
+local R=BattleReport
 local rules={}
 local trailers={}
 -- Compile the client's localized printf strings, retaining positional captures.
@@ -136,7 +136,7 @@ local function itemName(id)
   return (GetItemInfo and GetItemInfo(id)) or ("Item #"..id)
 end
 frame:SetScript("OnEvent",function()
-  if event=="ADDON_LOADED" and arg1=="OctoBattleReport" then
+  if event=="ADDON_LOADED" and arg1=="BattleReport" then
     R.Init(); R.BuildRules(); R.CreateUI()
   elseif event=="PLAYER_LOGIN" then
     if GetSpellRecField and GetCVar("NP_EnableSpellGoEvents")=="1" then

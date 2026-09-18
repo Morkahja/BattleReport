@@ -1,4 +1,4 @@
-local R=OctoBattleReport
+local R=BattleReport
 local gold={1,.76,.34}
 local colors={Overview={.90,.68,.30},Damage={.93,.48,.25},Defense={.35,.64,.91},Healing={.34,.80,.57},Casts={.64,.53,.94},Effects={.90,.65,.31},Recovery={.35,.80,.78}}
 local function text(parent,size,x,y,value,color)
@@ -63,8 +63,8 @@ local function tooltip(a)
   GameTooltip:Show()
 end
 function R.CreateUI()
-  local w=panel(UIParent,0,0,720,652,"OctoBattleReportWindow")
-  if UISpecialFrames then table.insert(UISpecialFrames,"OctoBattleReportWindow") end
+  local w=panel(UIParent,0,0,720,652,"BattleReportWindow")
+  if UISpecialFrames then table.insert(UISpecialFrames,"BattleReportWindow") end
   R.window=w
   w:SetFrameStrata("DIALOG"); w:SetMovable(true); w:EnableMouse(true); w:SetClampedToScreen(true)
   w:ClearAllPoints()
@@ -74,10 +74,10 @@ function R.CreateUI()
   w:SetScript("OnDragStart",function() this:StartMoving() end)
   w:SetScript("OnDragStop",function() this:StopMovingOrSizing(); R.db.x=this:GetLeft(); R.db.y=this:GetTop() end)
   w:SetBackdropColor(.035,.045,.065,.98)
-  text(w,19,22,-20,"OCTO  /  BATTLE REPORT",gold)
+  text(w,19,22,-20,"BATTLE REPORT",gold)
   w.subtitle=text(w,11,23,-48,"Your fight, at a glance.",{.55,.61,.69})
   button(w,"X",674,-16,26,function() w:Hide() end)
-  local quick=CreateFrame("CheckButton","OctoBattleReportQuickReport",w,"UICheckButtonTemplate")
+  local quick=CreateFrame("CheckButton","BattleReportQuickReport",w,"UICheckButtonTemplate")
   quick:SetPoint("TOPLEFT",w,"TOPLEFT",535,-18); quick:SetWidth(22); quick:SetHeight(22)
   text(quick,11,27,-6,"Quick report",{.75,.80,.87})
   quick:SetChecked(R.db.quickReport)
@@ -427,7 +427,7 @@ function R.Refresh()
       end)
       if tab=="Recovery" then note="Overlapping observations, not additive. Hover for averages and recovery rates."
       elseif tab=="Casts" then note=f.castMode..". Hits and ticks are separate in Damage."
-      elseif tab=="Effects" then note="Gains / refreshes are observations, not guaranteed procs. /obr source to label."
+      elseif tab=="Effects" then note="Gains / refreshes are observations, not guaranteed procs. /battlereport source to label."
       elseif tab=="Defense" then note="Avoided: "..R.Number(f.Miss).." miss / "..R.Number(f.Resist).." resist / "..R.Number(f.Absorb).." absorb / "..R.Number(f.Immune).." immune"
       elseif tab=="Healing" then note="Logged healing, including possible overhealing. Self-heals enter both summary totals." end
     end
@@ -461,17 +461,17 @@ function R.Refresh()
   w.note:SetText(note)
   w.page:SetText(R.rowCount>0 and ((R.offset+1).."-"..math.min(R.offset+7,R.rowCount).." / "..R.rowCount) or "")
 end
-SLASH_OCTOBATTLEREPORT1="/obr"
-SLASH_OCTOBATTLEREPORT2="/battlereport"
-SlashCmdList["OCTOBATTLEREPORT"]=function(msg)
+SLASH_BATTLEREPORT1="/breport"
+SLASH_BATTLEREPORT2="/battlereport"
+SlashCmdList["BATTLEREPORT"]=function(msg)
   if not R.db then return end
   local _,_,effect,source=string.find(msg,"^source%s+(.+)%s*=%s*(.+)$")
   if effect then
     effect=string.gsub(effect,"%s+$",""); source=string.gsub(source,"%s+$","")
     R.db.sources[effect]=source
-    DEFAULT_CHAT_FRAME:AddMessage("Octo Battle Report: labeled "..effect.." as "..source.." for future observations.")
+    DEFAULT_CHAT_FRAME:AddMessage("Battle Report: labeled "..effect.." as "..source.." for future observations.")
   elseif msg=="source" then
-    DEFAULT_CHAT_FRAME:AddMessage("Use /obr source Effect name = Item or enchantment name. Labels describe the source; they do not prove proc counts.")
+    DEFAULT_CHAT_FRAME:AddMessage("Use /battlereport source Effect name = Item or enchantment name. Labels describe the source; they do not prove proc counts.")
   elseif msg=="button" then
     R.EndPrompt()
     R.db.hideLauncher=not R.db.hideLauncher

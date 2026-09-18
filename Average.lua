@@ -1,4 +1,4 @@
-local R=OctoBattleReport
+local R=BattleReport
 local scalars={"damage","taken","healing","received","attacks","hits","ticks","crits","incoming","incomingHits","blocked","absorbed","resisted","Dodge","Parry","Block","Miss","Resist","Absorb","Immune","Evade"}
 local groups={"abilities","defense","heals","effects","casts","recovery"}
 local values={"count","amount","hits","ticks","crits","casts","misses"}

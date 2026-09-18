@@ -1,10 +1,10 @@
-# Octo Battle Report
+# Battle Report
 
-A lightweight personal fight report for the original WoW 1.12 client, including Turtle WoW. Standalone: ShaguDPS can stay installed, but is not a dependency and is not modified.
+A lightweight personal fight report for the original WoW 1.12 client. Standalone: ShaguDPS can stay installed, but is not a dependency and is not modified.
 
 ## Open the report
 
-Restart the game after first installation and enable **Octo Battle Report** in the character-selection AddOns list. Click the movable **Battle Report** button or type `/obr` (also `/battlereport`). Drag the window by its header. Escape closes it.
+Restart the game after first installation and enable **Battle Report** in the character-selection AddOns list. Click the movable **Battle Report** button or type `/battlereport` (also `/breport`). Drag the window by its header. Escape closes it.
 
 Recording happens even when the window is closed. Leave it open to watch counters update five times per second. **Live / Latest** follows the current fight, or shows the latest completed one. The left arrow decreases the saved-fight number; the right arrow increases it. Fight 1 is newest, up to fight 100 (oldest retained). Reports and positions are saved per character on normal logout/reload.
 
@@ -63,7 +63,7 @@ The old combat log does not always reveal which weapon, enchantment or item caus
 You can label an exact effect name for future observations:
 
 ```
-/obr source Fiery Weapon = Fiery Weapon enchantment
+/battlereport source Fiery Weapon = Fiery Weapon enchantment
 ```
 
 This labels both aura observations and a separate damage-event row when that exact ability deals damage. It is a user-supplied attribution, not automatic proof of its source. Resource-gain totals and extra attacks granted are available in the effect tooltip.
@@ -74,10 +74,10 @@ Logged healing can include overhealing. Only explicitly logged blocked/absorbed/
 
 Recording begins on the player's combat-state event, or when an event arrives while the player is already flagged in combat. Leaving combat closes the report immediately. Out-of-combat damage (including falling), healing, casts and resource changes are excluded. Re-entering combat starts a separate report. A death alone does not split a fight until combat ends. Reloading during combat saves a partial report and starts a new segment afterward.
 
-- `/obr last`: last completed fight.
-- `/obr button`: hide/show the launcher.
-- `/obr position`: restore window and launcher positions.
-- `/obr source`: explain effect source labels.
+- `/battlereport last`: last completed fight.
+- `/battlereport button`: hide/show the launcher.
+- `/battlereport position`: restore window and launcher positions.
+- `/battlereport source`: explain effect source labels.
 
 No full combat log, party meter, external libraries, network access, chat broadcasts or changes to ShaguDPS. Storage is limited to 100 aggregate reports plus the active report; the timeline is bounded. Average is cached and rebuilt only after a completed report or reset.
 

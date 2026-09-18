@@ -1,4 +1,4 @@
-local R=OctoBattleReport
+local R=BattleReport
 local names={[0]="Mana",[1]="Rage",[2]="Focus",[3]="Energy",[4]="Happiness"}
 local previous
 local lastManaLoss
